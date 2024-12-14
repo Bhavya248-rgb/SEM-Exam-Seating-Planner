@@ -1,0 +1,59 @@
+
+  
+  /* Main Content Styling */
+  .content {
+    flex: 1;
+    padding: 20px;
+    background-color: #ecf0f1;
+  }
+  
+  header h1 {
+    margin: 0 0 20px 0;
+    color: #2c3e50;
+  }
+  
+  #main-content {
+    font-size: 18px;
+    color: #2c3e50;
+  }
+  
+  #upload {
+    margin-top: 20px;
+  }
+  
+  #planner-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  #planner-form label {
+    font-weight: bold;
+  }
+  
+  #planner-form input {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  #planner-form button {
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #3498db;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  #planner-form button:hover {
+    background-color: #2980b9;
+  }
+  
+  #status-message {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #2c3e50;
+  }

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Profile</title>
+  <link rel="stylesheet" href="student-profile.css">
+</head>
+<body>
+
+  <div class="profile-container">
+    <div class="profile-card">
+      <h1>Admin Profile</h1>
+
+      <div class="profile-info">
+        <p><strong>Name:</strong> <span id="admin-name">Admin</span></p>
+        <p><strong>Email:</strong> <span id="admin-email">admin@domain.com</span></p>
+        <p><strong>Role:</strong> <span id="admin-role">Loading...</span></p>
+      </div>
+
+      <button id="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <script src="admin-profile.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to right, #00b4d8, #0077b6);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container for Layout */
+.container {
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+}
+
+/* Header */
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+/* Login Container */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Login Box */
+.login-box {
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Button Styles */
+.login-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn {
+  background-color: #0077b6;
+  border: none;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;  /* Space between icon and text */
+}
+
+.btn i {
+  font-size: 1.4rem;  /* Adjust size of icon */
+}
+
+/* Button Hover Effect */
+.btn:hover {
+  background-color: #00b4d8;
+}
+
+/* Footer */
+footer {
+  margin-top: 30px;
+  font-size: 0.9rem;
+  color: #d1d1d1;
+}
+
+footer p {
+  margin-top: 20px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  /* Adjust header font size on mobile */
+  header h1 {
+    font-size: 2rem;
+  }
+
+  /* Adjust login box padding */
+  .login-box {
+    padding: 20px;
+  }
+
+  /* Adjust button text and icon sizes */
+  .btn {
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  .btn i {
+    font-size: 1.2rem;
+  }
+
+  /* Adjust container width */
+  .container {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Adjust header font size on very small screens */
+  header h1 {
+    font-size: 1.6rem;
+  }
+
+  /* Adjust login box width */
+  .login-box {
+    width: 90%;
+    max-width: 280px;
+  }
+
+  /* Adjust button size for smaller screens */
+  .btn {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .btn i {
+    font-size: 1rem;
+  }
+
+  /* Adjust container padding */
+  .container {
+    padding: 10px;
+  }
+}

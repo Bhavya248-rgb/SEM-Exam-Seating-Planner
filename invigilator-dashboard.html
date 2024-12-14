@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Allocation Data</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    th, td {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f4f4f4;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .container {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+
+  <h1>Allocation Data</h1>
+  <div class="container">
+    <table id="allocationTable">
+      <thead>
+        <tr>
+          <th>Block</th>
+          <th>Room No</th>
+          <th>Invigilator ID</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Data will be inserted here dynamically -->
+      </tbody>
+    </table>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore.js";
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCVXewlRhf6VlNCsqIMrWXzazY9mfUxXLU",
+      authDomain: "sem-exam-seating-planner.firebaseapp.com",
+      projectId: "sem-exam-seating-planner",
+      storageBucket: "sem-exam-seating-planner.appspot.com",
+      messagingSenderId: "572574273894",
+      appId: "1:572574273894:web:3411aa2b8a6db04ef8b8a7",
+      databaseURL: "https://sem-exam-seating-planner-default-rtdb.asia-southeast1.firebasedatabase.app/",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const db = getDatabase(app);
+    const firestore = getFirestore(app);
+
+    // Function to decode base64 string and display matching rows in table
+    async function fetchAndDecodeAllocationData(user) {
+  try {
+    // Reference to the root of planners
+    const plannersRef = ref(db, "planners");
+
+    // Fetch all planners data
+    const plannersSnapshot = await get(plannersRef);
+    if (plannersSnapshot.exists()) {
+      const plannersData = plannersSnapshot.val();
+      
+      // Iterate through all planners
+      for (const plannerID in plannersData) {
+        // Dynamically construct the allocationRef for each planner
+        const allocationRef = ref(db, `planners/${plannerID}/files/invigilatorAllocationFile/content`);
+
+        // Fetch the content for the current planner
+        const snapshot = await get(allocationRef);
+        if (snapshot.exists()) {
+          const allocationContent = snapshot.val();  // This is the content of allocationFile
+
+          // Decode the base64 content
+          const decodedContent = atob(allocationContent); // Decode from base64 to plain text (CSV format)
+
+          // Split the decoded content into rows (assuming it's CSV format)
+          const rows = decodedContent.split("\n");
+
+          // Get reference to the table body
+          const tableBody = document.querySelector("#allocationTable tbody");
+
+          // Loop through the rows and check the third column for matching rollNo
+          rows.forEach((row, index) => {
+            // Split the row into columns by commas
+            const columns = row.split(",");
+
+            // Skip the first two rows (header rows) if necessary
+            if (index >= 2 && columns.length >= 3) {
+              // Compare third column with current user's rollNo
+              if (columns[2] == user.rollNo) {  // Check if third column matches rollNo
+                // Create a new row element and add to the table
+                const tableRow = document.createElement("tr");
+                tableRow.innerHTML = `
+                  <td>${columns[0]}</td>
+                  <td>${columns[1]}</td>
+                  <td>${columns[2]}</td>
+                  <td>${columns[3]}</td>
+                `;
+                tableBody.appendChild(tableRow);
+              }
+            }
+          });
+        } else {
+          console.log(`No allocation data available for plannerID: ${plannerID}`);
+        }
+      }
+    } else {
+      console.log("No planners data available.");
+    }
+
+    // Fetch user details from Firestore to get rollNo
+    const userDocRef = doc(firestore, "users", user.uid);
+    const userDoc = await getDoc(userDocRef);
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
+      const rollNo = userData.rollNo || "No Roll No Available";  // Default rollNo if not found
+      console.log(`Current user UID: ${user.uid}, RollNo: ${rollNo}`);
+    } else {
+      console.log("No user document found in Firestore.");
+    }
+
+  } catch (error) {
+    console.error("Error fetching or decoding allocation data:", error);
+  }
+}
+
+
+    // Listen for authentication state changes to get the current user
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        console.log("User is logged in.");
+
+        // Fetch user data from Firestore to get rollNo
+        const userDocRef = doc(firestore, "users", user.uid);
+        const userDoc = await getDoc(userDocRef);
+
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          const rollNo = userData.rollNo || null;
+
+          if (rollNo) {
+            user.rollNo = rollNo; // Add rollNo to user object for use later
+            // Fetch and decode allocation data once the user is authenticated
+            await fetchAndDecodeAllocationData(user);
+          } else {
+            console.log("No rollNo found for the current user.");
+          }
+        } else {
+          console.log("User data not found in Firestore.");
+        }
+      } else {
+        console.log("No user is logged in.");
+      }
+    });
+  </script>
+  
+</body>
+</html>

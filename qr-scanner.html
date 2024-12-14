@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner - Save Scanned Roll Numbers</title>
+
+    <style>
+
+        button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top:30px;
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+</head>
+<body>
+    <h1>QR Code Scanner for Attendance</h1>
+
+    <div id="qr-reader" style="width: 500px; height: 500px;"></div>
+    <button id="start-button">Start Scanning</button>
+    <button id="stop-button" style="display: none;">Stop Scanning</button>
+    <button id="download-csv" style="display: none;" disabled>Download CSV</button>
+    
+    <script>
+        // Array to store scanned roll numbers
+        let scannedRollNumbers = [];
+        let html5QrCode; // Variable to hold the scanner instance
+
+        // Function to handle successful scan
+        function onScanSuccess(decodedText, decodedResult) {
+            if (!scannedRollNumbers.includes(decodedText)) {
+                console.log(`Scanned Roll Number: ${decodedText}`);
+                scannedRollNumbers.push(decodedText); // Add unique roll number to the array
+                alert(`Roll Number ${decodedText} added!`);
+            } else {
+                console.log(`Roll Number ${decodedText} already scanned.`);
+            }
+        }
+
+        // Function to handle errors during scanning
+        function onScanError(errorMessage) {
+            console.log(`QR Code scan error: ${errorMessage}`);
+        }
+
+        // Function to start the QR code scanner
+        function startQRCodeScanner() {
+            html5QrCode = new Html5Qrcode("qr-reader");
+            html5QrCode.start({ facingMode: "environment" }, { fps: 10, qrbox: 250 }, onScanSuccess, onScanError)
+                .then(() => {
+                    document.getElementById("stop-button").style.display = "inline-block"; // Show Stop button
+                })
+                .catch(err => {
+                    console.error("Unable to start QR code scanning:", err);
+                });
+        }
+
+        // Function to stop the QR code scanner
+        function stopQRCodeScanner() {
+            if (html5QrCode) {
+                html5QrCode.stop().then(() => {
+                    console.log("QR Code scanning stopped.");
+                    document.getElementById("download-csv").disabled = false; // Enable Download CSV button
+                    document.getElementById("download-csv").style.display = "inline-block"; // Show Download button
+                    document.getElementById("stop-button").style.display = "none"; // Hide Stop button
+                }).catch(err => {
+                    console.error("Error stopping QR code scanning:", err);
+                });
+            }
+        }
+
+        // Function to generate and download the CSV file
+        function generateCSV() {
+            const csvHeader = 'Roll Number\n'; // CSV header
+            const csvContent = scannedRollNumbers.map(rollNo => `${rollNo}`).join('\n');
+            const csvData = csvHeader + csvContent;
+
+            // Create a Blob for the CSV file
+            const blob = new Blob([csvData], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'scanned_roll_numbers.csv'); // Name of the CSV file
+            link.click();
+        }
+
+        // Event listener for the start scanning button
+        document.getElementById("start-button").addEventListener("click", function() {
+            startQRCodeScanner();
+        });
+
+        // Event listener for the stop scanning button
+        document.getElementById("stop-button").addEventListener("click", function() {
+            stopQRCodeScanner();
+        });
+
+        // Event listener for the download CSV button
+        document.getElementById("download-csv").addEventListener("click", function() {
+            generateCSV(); // Generate and download the CSV file
+        });
+    </script>
+</body>
+</html>

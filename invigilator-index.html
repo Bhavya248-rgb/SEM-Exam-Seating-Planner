@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invigilator Dashboard</title>
+    <link rel="stylesheet" href="invigilator-index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="header2">Invigilator</div>
+                
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="invigilator-dashboard.html"><i class="fas fa-tachometer-alt"></i><span class="menu-text">Dashboard</span></a></li>
+                <li><a href="exam-tools.html"><i class="fas fa-clipboard-list"></i><span class="menu-text">Exam Tools</span></a></li>
+                <li><a href="invigilator-notifications.html"><i class="fas fa-bell"></i><span class="menu-text">Notifications</span></a></li>
+                <li><a href="#"><i class="fas fa-life-ring"></i><span class="menu-text">Help and Support</span></a></li>
+                <li><a href="invigilator-profile.html"><i class="fas fa-user"></i><span class="menu-text">Profile</span></a></li>
+            </ul>
+            <button class="toggle-btn" onclick="toggleSidebar()">
+                <i class="fas fa-chevron-right"></i> <!-- Arrow Icon -->
+            </button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <header>
+                <h1>Welcome to Invigilator Dashboard</h1>
+            </header>
+            <div id="main-content">
+                <p>Here is your personalized dashboard to manage your attendance, notifications, and profile.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Sidebar Functionality
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const toggleBtn = document.querySelector('.toggle-btn i');
+            
+            sidebar.classList.toggle('expanded');
+            toggleBtn.classList.toggle('rotate');
+        }
+    </script>
+
+</body>
+</html>

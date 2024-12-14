@@ -1,0 +1,27 @@
+.main-content {
+  margin-left: 220px;
+  padding: 20px;
+  
+}
+.card {
+  padding: 20px;
+  background-color: #ecf0f1;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+.card h3 {
+  margin-top: 0;
+}
+.button {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.button:hover {
+  background-color: #2980b9;
+}

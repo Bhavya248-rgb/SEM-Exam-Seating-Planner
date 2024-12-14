@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="student.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <!-- <h2 class="header2">Student Dashboard</h2> -->
+                 <div class="header2">Student Dashboard</div>
+                <!-- <div>
+                    <a href="admin-index.html"><h2 class="header2">Student Dashboard</h2></a>
+                 </div>  -->
+                
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="student-dashboard.html"><i class="fas fa-tachometer-alt"></i><span class="menu-text">Dashboard</span></a></li>
+                <li><a href="#"><i class="fas fa-clipboard-list"></i><span class="menu-text">Attendance Record</span></a></li>
+                <li><a href="student-show-notifications.html"><i class="fas fa-bell"></i><span class="menu-text">Notifications</span></a></li>
+                <li><a href="#"><i class="fas fa-life-ring"></i><span class="menu-text">Help and Support</span></a></li>
+                <li><a href="student-profile.html"><i class="fas fa-user"></i><span class="menu-text">Profile</span></a></li>
+            </ul>
+            <button class="toggle-btn" onclick="toggleSidebar()">
+                <i class="fas fa-chevron-right"></i> <!-- Arrow Icon -->
+            </button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <header>
+                <h1>Welcome to Your Dashboard</h1>
+            </header>
+            <div id="main-content">
+                <p>Here is your personalized dashboard to manage your attendance, notifications, and profile.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Sidebar Functionality
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const toggleBtn = document.querySelector('.toggle-btn i');
+            
+            sidebar.classList.toggle('expanded');
+            toggleBtn.classList.toggle('rotate');
+        }
+    </script>
+
+</body>
+</html>

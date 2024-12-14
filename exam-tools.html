@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invigilator Dashboard</title>
+    <link rel="stylesheet" href="invigilator-index.css">
+    <link rel="stylesheet" href="exam-tools.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="header2">Invigilator</div>
+                
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="invigilator-dashboard.html"><i class="fas fa-tachometer-alt"></i><span class="menu-text">Dashboard</span></a></li>
+                <li><a href="exam-tools.html"><i class="fas fa-clipboard-list"></i><span class="menu-text">Exam Tools</span></a></li>
+                <li><a href="invigilator-notifications.html"><i class="fas fa-bell"></i><span class="menu-text">Notifications</span></a></li>
+                <li><a href="#"><i class="fas fa-life-ring"></i><span class="menu-text">Help and Support</span></a></li>
+                <li><a href="invigilator-profile.html"><i class="fas fa-user"></i><span class="menu-text">Profile</span></a></li>
+            </ul>
+            <button class="toggle-btn" onclick="toggleSidebar()">
+                <i class="fas fa-chevron-right"></i> <!-- Arrow Icon -->
+            </button>
+        </div>
+        <div class="main-content" id="main-content">
+            <h2>Invigilation Assignments</h2>
+            <!-- Invigilation cards will be dynamically added here -->
+        </div>
+    </div>
+
+    <script>
+            // Toggle Sidebar Functionality
+            function toggleSidebar() {
+                const sidebar = document.querySelector('.sidebar');
+                const toggleBtn = document.querySelector('.toggle-btn i');
+                
+                sidebar.classList.toggle('expanded');
+                toggleBtn.classList.toggle('rotate');
+            }
+
+            const invigilationDetails = [
+            { date: "2024-12-14", roomNo: "B205" },
+            { date: "2024-12-15", roomNo: "C101" }
+        ];
+
+        // Get the container to add cards
+        const mainContent = document.getElementById("main-content");
+
+        // Loop through each invigilation detail and create a card
+        invigilationDetails.forEach((details, index) => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+
+            card.innerHTML = `
+                <h3>Invigilation ${index + 1}</h3>
+                <p><strong>Date:</strong> ${details.date}</p>
+                <p><strong>Room No:</strong> ${details.roomNo}</p>
+                <button class="button" onclick="goToQRScanner('${details.date}', '${details.roomNo}')">Upload Attendance</button>
+            `;
+
+            mainContent.appendChild(card);
+        });
+
+        // Function to navigate to the QR scanner page
+        function goToQRScanner(date, roomNo) {
+            // Store date and roomNo in localStorage (optional for data transfer)
+            localStorage.setItem('invigilationDate', date);
+            localStorage.setItem('invigilationRoomNo', roomNo);
+
+            // Redirect to QR scanner page
+            window.location.href = 'qr-scanner.html'; // Update with the actual path to your QR scanner page
+        }
+    </script>
+</body>
+</html>

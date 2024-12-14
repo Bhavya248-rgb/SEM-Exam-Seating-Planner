@@ -1,0 +1,110 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to right, #00b4d8, #0077b6);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 10px; /* Added some padding to prevent content from sticking to edges on small screens */
+}
+
+/* Login Container */
+.login-container {
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Heading */
+h1 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+/* Label and Input Fields */
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1rem;
+  text-align: left;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  border: 2px solid #0077b6;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+}
+
+select {
+  cursor: pointer;
+}
+
+/* Button */
+.btn {
+  background-color: #0077b6;
+  border: none;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.btn:hover {
+  background-color: #00b4d8;
+}
+
+/* Mobile-first Approach: These styles will apply to mobile devices by default */
+
+/* Media Queries for Larger Screens */
+@media (min-width: 768px) {
+  /* Adjust heading font size for tablets and up */
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  /* Increase input padding and font size for better readability on tablets */
+  input, select {
+    padding: 12px;
+    font-size: 1.1rem;
+  }
+
+  /* Make button slightly larger on tablets */
+  .btn {
+    padding: 18px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Increase font size of heading and button for larger devices */
+  h1 {
+    font-size: 3rem;
+  }
+
+  .btn {
+    padding: 20px;
+    font-size: 1.3rem;
+  }
+}

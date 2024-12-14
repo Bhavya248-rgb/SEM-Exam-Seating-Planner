@@ -4,29 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link href="admin-index.css" rel="stylesheet">
-    <link rel="stylesheet" href="upload.css">
+    <link rel="stylesheet" href="admin-index.css">
     <!-- Font Awesome for Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="admin-index.css" rel="stylesheet">
+
+    
 </head>
 <body>
     <div class="admin-container">
         <!-- Sidebar Navigation -->
         <nav class="sidebar">
             <div class="sidebar-header">
-                <a href="admin-index.html"><h2 class="panel">Admin Panel</h2></a>
+                <!-- <h2>Admin Panel</h2> -->
+                <a href="admin-index.html"><h2>Admin Panel</h2></a>
             </div>
             <ul class="sidebar-menu">
-                <li><a href="upload.html"><i class="fas fa-upload"></i><span class="menu-text">Upload</span></a></li>
-                <li><a href="room-management.html"><i class="fas fa-chalkboard"></i><span class="menu-text">Room Management</span></a></li>
-                <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i><span class="menu-text">Dashboard</span></a></li>
-                <li><a href="#live-chat"><i class="fas fa-comments"></i><span class="menu-text">Live Chat</span></a></li>
-                <li><a href="#notifications"><i class="fas fa-bell"></i><span class="menu-text">Notifications</span></a></li>
-                <li><a href="#settings"><i class="fas fa-cog"></i><span class="menu-text">Settings</span></a></li>
-                <li><a href="admin-profile.html"><i class="fas fa-user"></i><span class="menu-text">Profile</span></a></li>
-                <button class="toggle-btn" onclick="toggleSidebar()">
-                    <i class="fas fa-arrow-right"></i> <!-- Arrow icon -->
-                </button>
+                <li><a href="upload.html"><i class="fas fa-upload"></i> Upload</a></li>
+                <li><a href="room-management.html"><i class="fas fa-chalkboard"></i> Room Management</a></li>
+                <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="#live-chat"><i class="fas fa-comments"></i> Live Chat</a></li>
+                <li><a href="#notifications"><i class="fas fa-bell"></i> Notifications</a></li>
+                <li><a href="#settings"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#profile"><i class="fas fa-user"></i> Profile</a></li>
             </ul>
         </nav>
 
@@ -43,6 +42,9 @@
           
                   <label for="student-file">Upload Student File</label>
                   <input type="file" id="student-file" name="student-file" accept=".csv, .xlsx, .txt" required>
+
+                  <label for="invigilator-file">Upload Invigilator File</label>
+                  <input type="file" id="invigilator-file" name="invigilator-file" accept=".csv, .xlsx, .txt" required>
           
                   <button type="submit">Save Planner</button>
               </form>
@@ -50,8 +52,10 @@
           </section>
           
         </main>
+
+        
     </div>
 
-    <script src="admin-index.js"></script>
+    <script src="upload.js" type="module"></script>
 </body>
 </html>

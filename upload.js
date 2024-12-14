@@ -17,22 +17,27 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 // File Upload Logic
-document.getElementById("upload-form").addEventListener("submit", async (e) => {
+document.getElementById("planner-form").addEventListener("submit", async (e) => {
   e.preventDefault();
+  console.log("Form submitted");
 
   const plannerName = document.getElementById("planner-name").value;
   const roomFile = document.getElementById("room-file").files[0];
   const studentFile = document.getElementById("student-file").files[0];
+  const invigilatorFile = document.getElementById("invigilator-file").files[0];
 
   if (!plannerName || !roomFile || !studentFile) {
     alert("All fields are required!");
     return;
   }
 
+  console.log("Fields are valid, starting upload...");
+
   try {
     // Convert files to Base64
     const roomFileData = await fileToBase64(roomFile);
     const studentFileData = await fileToBase64(studentFile);
+    const invigilatorFileData = await fileToBase64(invigilatorFile);
 
     // Store in Firebase Realtime Database
     const plannerRef = push(ref(db, "planners"));
@@ -50,13 +55,22 @@ document.getElementById("upload-form").addEventListener("submit", async (e) => {
           type: studentFile.type,
           size: studentFile.size,
           content: studentFileData
-        }
+        },
+        invigilatorFile: {
+          name: invigilatorFile.name,
+          type: invigilatorFile.type,
+          size: invigilatorFile.size,
+          content: invigilatorFileData
+        },
       },
       timestamp: new Date().toISOString()
     });
 
     alert("Files uploaded successfully!");
-    document.getElementById("upload-form").reset();
+    console.log("Upload successful");
+
+    // Optionally reset the form
+    document.getElementById("planner-form").reset();
   } catch (error) {
     console.error("Error uploading files:", error);
     alert("Failed to upload files. Check the console for details.");

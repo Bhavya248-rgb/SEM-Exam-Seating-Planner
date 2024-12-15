@@ -21,8 +21,8 @@ const firestore = getFirestore(app);
 
 // Admin click handler
 document.getElementById("notifyButton").addEventListener("click", function() {
-    sendNotification("Your seminar seating has been updated", "Seminar Notification", "student");
-    sendNotification("You have been assigned as invigilator", "Invigilator Assignment", "invigilator");
+    sendNotification("Check your upcoming SEM exam seating Arrangement", "SEM Exam Seating Arrangement", "student");
+    sendNotification("You have been assigned as invigilator. Check your invigilation room details", "Invigilator Assignment", "invigilator");
   });
 
   // Function to send notification to users based on role
